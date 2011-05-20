@@ -16,35 +16,37 @@
 # WARNING: This line must come *before* including the proprietary
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
+TARGET_HAVE_TSLIB := true
 USE_CAMERA_STUB := false
 BOARD_USE_FROYO_LIBCAMERA := true
 
 TARGET_BOARD_PLATFORM := msm7k
-TARGET_CPU_ABI := armeabi-v6j
-TARGET_CPU_ABI2 := armeabi
 TARGET_ARCH_VARIANT := armv6j
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_ABI := armeabi-v6j
 
-TARGET_OTA_ASSERT_DEVICE := u8100
 TARGET_BOOTLOADER_BOARD_NAME := u8100
+TARGET_OTA_ASSERT_DEVICE := u8100
 
 TARGET_NO_BOOTLOADER := true
-TARGET_NO_RADIOIMAGE := true
 TARGET_NO_KERNEL := false
+TARGET_NO_RADIOIMAGE := true
 TARGET_NO_RECOVERY := false
 
 BOARD_HAVE_BLUETOOTH := true
 
-BOARD_USES_QCOM_LIBS := true
 BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_LIBRPC := true
 
 BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/msm_hsusb/gadget/lun"
 
 TARGET_USES_OLD_LIBSENSORS_HAL := true
 
-BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
-BOARD_LDPI_RECOVERY := true
 BOARD_CUSTOM_RECOVERY_KEYMAPPING := ../../device/huawei/u8100/recovery_ui.c
+BOARD_LDPI_RECOVERY := true
+BOARD_UMS_LUNFILE := "/sys/devices/platform/msm_hsusb/gadget/lun0/file"
 
 TARGET_PROVIDES_LIBAUDIO := true
 TARGET_PROVIDES_LIBRIL := true
@@ -86,6 +88,6 @@ BOARD_FLASH_BLOCK_SIZE := 262144
 
 BOARD_WPA_SUPPLICANT_DRIVER := AWEXT
 #WPA_SUPPLICANT_VERSION := VER_0_6_X
-WIFI_DRIVER_MODULE_NAME := "dhd"
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_NAME := "ar6000"
+WIFI_DRIVER_MODULE_PATH := "/system/wifi/ar6000.ko"
 #WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/firmware/firmware.bin nvram_path=/system/etc/firmware/nvram.txt"

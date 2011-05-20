@@ -1,15 +1,7 @@
 #!/bin/sh
-# Extract prebuilt libraries (from a zip archive) needed for the U8150
+# Extract prebuilt libraries (from a working device) needed for the U8150
 
-ZIP="$1"
-
-if [ ! "$ZIP" ]
-then
-    echo "Useage: unzip-files file[.zip]"
-    exit 1
-fi
-
-mkdir -p ../../../vendor/huawei/u8100/proprietary
+mkdir -p ../../../vendor/huawei/ideos/proprietary
 
 DIRS="
 bin
@@ -27,23 +19,11 @@ bin/modempre
 bin/oem_rpc_svc
 bin/qmuxd
 bin/rild
-"
 
-for FILE in $FILES; do
-    unzip -j -o $ZIP system/$FILE -d ../../../vendor/huawei/u8100/proprietary/bin
-done
-
-FILES="
-lib/hw/gralloc.msm7k.so
 lib/hw/lights.msm7k.so
+lib/hw/gralloc.msm7k.so
 lib/hw/sensors.default.so
-"
 
-for FILE in $FILES; do
-    unzip -j -o $ZIP system/$FILE -d ../../../vendor/huawei/u8100/proprietary/lib/hw
-done
-
-FILES="
 lib/libaudioeq.so
 lib/libcamera.so
 lib/libcm.so
@@ -80,7 +60,7 @@ lib/libwmsts.so
 "
 
 for FILE in $FILES; do
-    unzip -j -o $ZIP system/$FILE -d ../../../vendor/huawei/u8100/proprietary/lib
+    adb pull system/$FILE ../../../vendor/huawei/u8100/proprietary/$FILE
 done
 
-chmod 755 ../../../vendor/huawei/u8100/proprietary/bin/*
+chmod 755 ../../../vendor/huawei/ideos/proprietary/bin/* 

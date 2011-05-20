@@ -15,7 +15,7 @@
 #
 
 DEVICE_PACKAGE_OVERLAYS += device/huawei/u8100/overlay
-CYANOGEN_WITH_GOOGLE := true
+#CYANOGEN_WITH_GOOGLE := true
 
 # Kernel targets
 ifeq ($(TARGET_PREBUILT_KERNEL),)
@@ -32,11 +32,11 @@ PRODUCT_PACKAGES += \
 
 # Live Wallpapers
 PRODUCT_PACKAGES += \
+    librs_jni \
     LiveWallpapers \
     LiveWallpapersPicker \
     VisualizationWallpapers \
     LatinIME \
-    librs_jni
 
 # Live Wallpapers support
 PRODUCT_COPY_FILES += \
@@ -56,6 +56,24 @@ PRODUCT_COPY_FILES += \
     frameworks/base/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/base/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
+PRODUCT_PROPERTY_OVERRIDES := \
+    wifi.interface=eth0 \
+    wifi.supplicant_scan_interval=60 \
+    ro.sf.lcd_density=120 \
+    ro.com.android.dataroaming=false
+
+# The OpenGL ES API level that is natively supported by this device.
+# This is a 16.16 fixed point number
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opengles.version=65537
+
+# Perfomance tweaks
+PRODUCT_PROPERTY_OVERRIDES += \
+    dalvik.vm.execution-mode=int:jit \
+    dalvik.vm.heapsize=24m \
+    persist.sys.use_dithering=1 \
+    persist.sys.purgeable_assets=1 \
+    ro.compcache.default=18
 # Init
 PRODUCT_COPY_FILES += \
     device/huawei/u8100/init.qcom.rc:root/init.u8100.rc \
@@ -88,6 +106,8 @@ PRODUCT_COPY_FILES += \
     vendor/huawei/u8100/proprietary/lib/libpbmlib.so:system/lib/libpbmlib.so \
     vendor/huawei/u8100/proprietary/lib/libqmi.so:system/lib/libqmi.so \
     vendor/huawei/u8100/proprietary/lib/libqueue.so:system/lib/libqueue.so \
+    vendor/huawei/u8100/proprietary/lib/libril.so:system/lib/libril.so \
+    vendor/huawei/u8100/proprietary/lib/libril.so:obj/lib/libril.so \
     vendor/huawei/u8100/proprietary/lib/libril-qc-1.so:system/lib/libril-qc-1.so \
     vendor/huawei/u8100/proprietary/lib/libril-qcril-hook-oem.so:system/lib/libril-qcril-hook-oem.so \
     vendor/huawei/u8100/proprietary/lib/libwms.so:system/lib/libwms.so \
@@ -95,31 +115,28 @@ PRODUCT_COPY_FILES += \
 
 # Wi-Fi
 PRODUCT_COPY_FILES += \
-    device/huawei/u8100/prebuilt/dhd.ko:system/lib/modules/dhd.ko \
-    vendor/huawei/u8100/proprietary/artagent:system/wifi/artagent \
-    vendor/huawei/u8100/proprietary/athtcmd_ram.bin:system/wifi/athtcmd_ram.bin \
-    vendor/huawei/u8100/proprietary/athwlan.bin.z77:system/wifi/athwlan.bin.z77 \
-    vendor/huawei/u8100/proprietary/caldata.bin.ar6002:system/wifi/caldata.bin.ar6002 \
-    vendor/huawei/u8100/proprietary/caldata.bin.ar6102:system/wifi/caldata.bin.ar6102 \
-    vendor/huawei/u8100/proprietary/data.patch.hw2_0.bin:system/wifi/data.patch.hw2_0.bin \
-    vendor/huawei/u8100/proprietary/data.patch.hw2_0.bin.ar6002:system/wifi/data.patch.hw2_0.bin.ar6002 \
-    vendor/huawei/u8100/proprietary/data.patch.hw2_0.bin.ar6102:system/wifi/data.patch.hw2_0.bin.ar6102 \
-    vendor/huawei/u8100/proprietary/device.bin:system/wifi/device.bin \
-    vendor/huawei/u8100/proprietary/eeprom.bin:system/wifi/eeprom.bin \
-    vendor/huawei/u8100/proprietary/eeprom.data:system/wifi/eeprom.data \
-    vendor/huawei/u8100/proprietary/iwconfig:system/wifi/iwconfig \
-    vendor/huawei/u8100/proprietary/iwlist:system/wifi/iwlist \
-    vendor/huawei/u8100/proprietary/loadART.sh:system/wifi/loadART.sh \
-    vendor/huawei/u8100/proprietary/loadecho.sh:system/wifi/loadecho.sh 
+    device/huawei/u8100/firmware/ar6000.ko:system/wifi/ar6000.ko \
+    device/huawei/u8100/firmware/artagent:system/wifi/artagent \
+    device/huawei/u8100/firmware/athtcmd_ram.bin:system/wifi/athtcmd_ram.bin \
+    device/huawei/u8100/firmware/athwlan.bin.z77:system/wifi/athwlan.bin.z77 \
+    device/huawei/u8100/firmware/caldata.bin.ar6002:system/wifi/caldata.bin.ar6002 \
+    device/huawei/u8100/firmware/caldata.bin.ar6102:system/wifi/caldata.bin.ar6102 \
+    device/huawei/u8100/firmware/data.patch.hw2_0.bin:system/wifi/data.patch.hw2_0.bin \
+    device/huawei/u8100/firmware/data.patch.hw2_0.bin.ar6002:system/wifi/data.patch.hw2_0.bin.ar6002 \
+    device/huawei/u8100/firmware/data.patch.hw2_0.bin.ar6102:system/wifi/data.patch.hw2_0.bin.ar6102 \
+    device/huawei/u8100/firmware/device.bin:system/wifi/device.bin \
+    device/huawei/u8100/firmware/eeprom.bin:system/wifi/eeprom.bin \
+    device/huawei/u8100/firmware/eeprom.data:system/wifi/eeprom.data \
+    device/huawei/u8100/firmware/iwconfig:system/wifi/iwconfig \
+    device/huawei/u8100/firmware/iwlist:system/wifi/iwlist \
+    device/huawei/u8100/firmware/loadART.sh:system/wifi/loadART.sh \
+    device/huawei/u8100/firmware/loadecho.sh:system/wifi/loadecho.sh 
     
 # Keychars/Keylayout
 PRODUCT_COPY_FILES += \
-    device/huawei/u8100/keychars/qwerty2.kcm.bin:system/usr/keychars/qwerty2.kcm.bin \
-    device/huawei/u8100/keychars/qwerty.kcm.bin:system/usr/keychars/qwerty.kcm.bin \
-    device/huawei/u8100/keychars/surf_keypad.kcm.bin:system/usr/keychars/surf_keypad.kcm.bin \
-    device/huawei/u8100/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-    device/huawei/u8100/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
-    device/huawei/u8100/keylayout/surf_keypad.kl:system/usr/keylayout/surf_keypad.kl
+    device/huawei/u8100/keylayout/ideos-keypad.kl:system/usr/keylayout/ideos-keypad.kl \
+    device/huawei/u8100/keylayout/ideos-melfas-tk.kl:system/usr/keylayout/ideos-melfas-tk.kl \
+    device/huawei/u8100/keylayout/ideos-synaptics-tk.kl:system/usr/keylayout/ideos-synaptics-tk.kl
 
 # OEM RPC
 PRODUCT_COPY_FILES += \
@@ -156,10 +173,12 @@ PRODUCT_COPY_FILES += \
     vendor/huawei/u8100/proprietary/lib/libaudioeq.so:system/lib/libaudioeq.so
 # Camera
 PRODUCT_COPY_FILES += \
+    vendor/huawei/u8100/proprietary/lib/libcamera.so:obj/lib/libcamera.so \
     vendor/huawei/u8100/proprietary/lib/libcamera.so:system/lib/libcamera.so \
+    vendor/huawei/u8100/proprietary/lib/libqcamera.so:system/lib/libqcamera.so \
     vendor/huawei/u8100/proprietary/lib/libmmipl.so:system/lib/libmmipl.so \
     vendor/huawei/u8100/proprietary/lib/libmmjpeg.so:system/lib/libmmjpeg.so \
-    vendor/huawei/u8100/proprietary/lib/libqcamera.so:system/lib/libqcamera.so
+    vendor/huawei/u8100/proprietary/lib/libmmprocess.so:system/lib/libmmprocess.so
 
 # Other
 PRODUCT_COPY_FILES += \
@@ -175,3 +194,5 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 PRODUCT_NAME   := full_u8100
 PRODUCT_DEVICE := u8100
 PRODUCT_BRAND  := huawei
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.setupwizard.enable_bypass=1

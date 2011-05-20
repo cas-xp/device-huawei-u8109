@@ -23,16 +23,14 @@ on boot
     chmod 0666 /dev/light
     chmod 0666 /dev/proximity
     
-    write /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold 85
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 691200
+    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 153600
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor ondemand
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 600000
-    write /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 245000
-    write /sys/devices/system/cpu/cpufreq/ondemand/sampling_rate 40000
         
-    chmod 0777 /sys/kernel/logger/log_main/enable
     chmod 0777 /sys/kernel/logger/log_events/enable
-    chmod 0777 /sys/kernel/logger/log_radio/enable
+    chmod 0777 /sys/kernel/logger/log_main/enable
     chmod 0777 /sys/kernel/logger/log_main/priority
+    chmod 0777 /sys/kernel/logger/log_radio/enable
     chmod 0777 /sys/kernel/logger/log_radio/priority
 
     write /sys/module/lowmemorykiller/parameters/check_filepages 1
