@@ -15,7 +15,7 @@
 #
 
 DEVICE_PACKAGE_OVERLAYS += device/huawei/u8100/overlay
-#CYANOGEN_WITH_GOOGLE := true
+CYANOGEN_WITH_GOOGLE := true
 
 # Kernel targets
 ifeq ($(TARGET_PREBUILT_KERNEL),)
@@ -36,7 +36,9 @@ PRODUCT_PACKAGES += \
     LiveWallpapers \
     LiveWallpapersPicker \
     VisualizationWallpapers \
-    LatinIME \
+    dexpreopt
+
+DISABLE_DEXPREOPT := false
 
 # Live Wallpapers support
 PRODUCT_COPY_FILES += \
@@ -87,7 +89,14 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/huawei/u8100/include/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
     device/huawei/u8100/include/vold.fstab:system/etc/vold.fstab \
-    device/huawei/u8100/include/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf
+    device/huawei/u8100/include/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf 
+    
+#    device/huawei/u8100/include/ts.conf:system/ts.conf \
+#    device/huawei/u8100/include/inputraw.so:system/lib/inputraw.so \
+#    device/huawei/u8100/include/pthres.so:system/lib/pthres.so \
+#    device/huawei/u8100/include/dejitter.so:system/lib/dejitter.so \
+#    device/huawei/u8100/include/libtslib.so:system/lib/libtslib.so \
+#    device/huawei/u8100/include/linear.so:system/lib/linear.so 
     
 # RIL specific
 PRODUCT_COPY_FILES += \
@@ -184,7 +193,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/huawei/u8100/egl.cfg:system/lib/egl/egl.cfg \
     device/huawei/u8100/sysctl.conf:system/etc/sysctl.conf \
-    vendor/huawei/u8100/proprietary/lib/hw/gralloc.ideos.so:system/lib/hw/gralloc.u8100.so
+    device/huawei/u8100/firmware/autorun.iso:system/cdrom/autorun.iso \
+    device/huawei/u8100/firmware/gps.default.so:system/lib/hw/gps.u8100.so \
+    vendor/huawei/u8100/proprietary/lib/hw/gralloc.ideos.so:system/lib/hw/gralloc.u8100.so \
+    vendor/cyanogen/proprietary/noFrillsCPU.apk:system/app/noFrillsCPU.apk
 
 $(call inherit-product, build/target/product/full_base.mk)
 

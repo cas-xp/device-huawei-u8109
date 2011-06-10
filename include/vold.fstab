@@ -15,5 +15,5 @@
 ## Example of a standard sdcard mount for the emulator / Dream
 # Mounts the first usable partition of the specified device
 # Modify for Froyo update gaohuajiang 20100626
-#dev_mount sdcard /mnt/sdcard auto /devices/platform/goldfish_mmc.0 /devices/platform/msm_sdcc.2/mmc_host/mmc1
-dev_mount sdcard /mnt/sdcard auto /devices/platform/msm_sdcc.1/mmc_host/mmc0
+dev_mount sdcard /mnt/sdcard 1 /devices/platform/usb_mass_storage/lun0 /devices/platform/msm_sdcc.1/mmc_host/mmc0
+#dev_mount sdcard /mnt/sdcard auto /devices/platform/msm_sdcc.1/mmc_host/mmc0
